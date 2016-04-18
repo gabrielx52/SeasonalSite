@@ -23,6 +23,15 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+*.pyc
+.DS_Store
+*.sqlite
+*.sqlite3
+*.db
+*.idea
+
+# Virtual Environment
+seasonalenv/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

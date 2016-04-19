@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from seasonal.views import browse_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', browse_view, name="browse_produce"),
 ]

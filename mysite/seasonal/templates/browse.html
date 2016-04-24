@@ -1,15 +1,17 @@
 {% extends "base.html" %}{% block content %}
   <h1>Browse All Produce</h1>
   {% comment %} here is where the query happens {% endcomment %}
-  {% for pro in produce %}
-  <div class="pro">
-    <h2>{{ pro }}</h2>
-    <p class="byline">
-      Ideal Temp:  {{ pro.ideal_temp }}
-      Growth Time: {{ pro.growth_time }}
+  {% for item in produce %}
+  <div class="item">
+    <h3>{{ item }}</h3>
+    <p class="item-temp">
+      Ideal Temp:  {{ item.ideal_temp_low }}  &#x2109; - {{item.ideal_temp_high }} &#x2109;
     </p>
-    <div class="pro-body">
-      {{ pro.description }}
+    <p class="item-growtime">
+      Growth Time: {{ item.growth_time }} days
+    </p>
+    <div class="item-body">
+      {{ item.description }}
     </div>
   </div>
   {% endfor %}

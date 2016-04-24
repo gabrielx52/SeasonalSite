@@ -5,8 +5,9 @@ from django.db import models
 
 class Produce(models.Model):
     name = models.CharField(max_length=128)
-    ideal_temp = models.DecimalField(decimal_places=1, max_digits=4)
-    growth_time = models.DurationField()
+    ideal_temp_low = models.DecimalField(decimal_places=1, max_digits=4)
+    ideal_temp_high = models.DecimalField(decimal_places=1, max_digits=4)
+    growth_time = models.IntegerField()
     description = models.TextField(blank=True)
 
     class Meta:
@@ -17,29 +18,15 @@ class Produce(models.Model):
         return self.name
 
 
-class Spring(models.Model):
-    name = 'Spring'
-    start_date = models.DateTimeField(blank=True, null=True) # TODO: Add start date
-    end_date = models.DateTimeField(blank=True, null=True) # TODO: Add end date
-    seasonal_produce = models.ManyToManyField(Produce, blank=True)
+class Season(models.Model):
+    name = models.CharField(max_length=16)
+    start_date = models.DateTimeField(blank=True, null=False)  # TODO: Add start date
+    end_date = models.DateTimeField(blank=True, null=False)  # TODO: Add end date
+    produce = models.ManyToManyField(Produce, blank=True, related_name='seasons')
 
+    class Meta:
+        verbose_name = 'season'
+        verbose_name_plural = "seasons"
 
-class Summer(models.Model):
-    name = 'Summer'
-    start_date = models.DateTimeField(blank=True, null=True) # TODO: Add start date
-    end_date = models.DateTimeField(blank=True, null=True) # TODO: Add end date
-    seasonal_produce = models.ManyToManyField(Produce, blank=True)
-
-
-class Fall(models.Model):
-    name = 'Fall'
-    start_date = models.DateTimeField(blank=True, null=True) # TODO: Add start date
-    end_date = models.DateTimeField(blank=True, null=True) # TODO: Add end date
-    seasonal_produce = models.ManyToManyField(Produce, blank=True)
-
-
-class Winter(models.Model):
-    name = 'Winter'
-    start_date = models.DateTimeField(blank=True, null=True) # TODO: Add start date
-    end_date = models.DateTimeField(blank=True, null=True) # TODO: Add end date
-    seasonal_produce = models.ManyToManyField(Produce, blank=True)
+    def __str__(self):
+        return self.name

@@ -18,6 +18,21 @@ class Produce(models.Model):
         return self.name
 
 
+class Location(models.Model):
+    zipcode = models.CharField(max_length=5)
+    city = models.CharField(max_length=64)
+    state = models.CharField(max_length=32)
+    grow_zone = models.CharField(max_length=8)
+    airport_code = models.CharField(max_length=8, blank=True)
+
+    class Meta:
+        verbose_name = 'location'
+        verbose_name_plural = "locations"
+
+    def __str__(self):
+        return "{}, {}".format(self.city, self.state)
+
+
 class Season(models.Model):
     name = models.CharField(max_length=16)
     start_date = models.DateTimeField(blank=True, null=False)  # TODO: Add start date

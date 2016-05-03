@@ -4,10 +4,14 @@
     <title>Search Results</title>
 </head>
 <body>
-    <p>You searched for: <strong>{{ query }}</strong></p>
+    <form action="" method="get">
+        <label>Search Produce:</label>
+        <input type="text" name="q">
+        <input type="submit" value="Search">
+    </form>
 
     {% if produce %}
-        <p><strong>Results:</strong></p>
+        <p><strong>Results for: {{query}}</strong></p>
         <ul>
            {% for item in produce %}
               <div class="item">
@@ -24,8 +28,6 @@
               </div>
            {% endfor %}
          </ul>
-    {% else %}
-       <p style="color: red;">No produce matched your search criteria.</p>
     {% endif %}
 
 </body>

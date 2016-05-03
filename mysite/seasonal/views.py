@@ -11,13 +11,17 @@ def browse_view(request):
 
 
 def search_view(request):
-    error = False
+    errors = []
     if 'q' in request.GET:
         q = request.GET['q']
         if not q:
-            error = True
+            errors.append('Enter a search term.')
         else:
             produce = Produce.objects.filter(name__icontains=q)
-            context = {'produce': produce, 'query': q}
-            return render(request, 'search_results.html', context)
-    return render(request, 'search.html', {'error': error})
+
+            if produce:
+                context = {'produce': produce, 'query': q}
+                return render(request, 'search_results.html', context)
+            else:
+                errors.append('No search results found for: {}'.format(q))
+    return render(request, 'search.html', {'errors': errors})

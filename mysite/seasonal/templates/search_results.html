@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+    <p>You searched for: <strong>{{ query }}</strong></p>
+
+    {% if produce %}
+        <p><strong>Results:</strong></p>
+        <ul>
+           {% for item in produce %}
+              <div class="item">
+                <h2>{{ item }}</h2>
+                <p>
+                  <strong>Ideal Temp:</strong>  {{ item.ideal_temp_low }}  &#x2109; - {{item.ideal_temp_high }} &#x2109;
+                </p>
+                <p class="item-growtime">
+                  <strong>Growth Time:</strong> {{ item.growth_time }} days
+                </p>
+                <div class="item-body">
+                  <strong>Description:</strong> {{ item.description }}
+                </div>
+              </div>
+           {% endfor %}
+         </ul>
+    {% else %}
+       <p style="color: red;">No produce matched your search criteria.</p>
+    {% endif %}
+
+</body>
+</html>

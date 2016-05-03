@@ -11,7 +11,13 @@ def browse_view(request):
 
 
 def search_view(request):
-    location = Location.objects.order_by('-name')
-    produce = Produce.objects.order_by('-name')
-    context = {'produce': produce, 'location': location}
-    return render(request, 'search.html', context)
+    error = False
+    if 'q' in request.GET:
+        q = request.GET['q']
+        if not q:
+            error = True
+        else:
+            produce = Produce.objects.filter(name__icontains=q)
+            context = {'produce': produce, 'query': q}
+            return render(request, 'search_results.html', context)
+    return render(request, 'search.html', {'error': error})

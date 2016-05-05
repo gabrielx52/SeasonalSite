@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Seasonal Produce</title>
+      <a href="{% url 'browse' %}">Home</a> <a href="{% url 'browse' %}">Browse Produce</a> <a href="{% url 'search' %}">Search Produce</a>
   </head>
   <body>
     <div id="container">
       <div id="content">
       {% block content %}
-       [content will go here]
       {% endblock %}
       </div>
     </div>

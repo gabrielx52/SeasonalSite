@@ -1,10 +1,4 @@
-<!DOCTYPE html>
 {% extends "base.html" %}{% block content %}
-<html lang="en">
-<head>
-    <title>Search Produce</title>
-</head>
-<body>
     <form action="" method="get">
         <label>Search Produce:</label>
         <input type="text" name="q">
@@ -15,7 +9,5 @@
             <p style="color: red;">{{ error }}</p>
         {% endfor %}
     {% endif %}
-</body>
-</html>
 {% endblock %}
 

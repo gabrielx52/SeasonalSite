@@ -13,3 +13,8 @@ Django web app used to track seasonal produce based on location
     
 4. For testing, load the test database fixture so there is data to test with:
     ./manage.py loaddata test_produce
+
+5. To start the server:
+    ./manage.py runserver
+
+6. The site will run locally @ http://localhost:8000/

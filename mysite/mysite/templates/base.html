@@ -1,14 +1,66 @@
-<!DOCTYPE html>
-<html>
-  <head>
-      <a href="{% url 'browse' %}">Home</a> <a href="{% url 'browse' %}">Browse Produce</a> <a href="{% url 'search' %}">Search Produce</a>
-  </head>
-  <body>
-    <div id="container">
-      <div id="content">
-      {% block content %}
-      {% endblock %}
-      </div>
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SeasonalSite</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'global.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale: 1.0, user-scalable=0"/>
+    <script src="scripts/jquery-2.2.3.js"><</script>
+    <script src="scripts/general.js"></script>
+</head>
+<body>
+
+    <div id="header">
+        <div class="logo"><a href="#">Seasonal<span>Site</span></a></div>
     </div>
-  </body>
+
+    <a class="mobile" href="#">MENU</a>
+
+    <div id="container">
+        <div class="sidebar">
+            <ul id="nav">
+                <li><a class="selected" href="{% url 'browse' %}">Home</a></li>
+                <li><a href="{% url 'browse' %}">Browse</a></li></li>
+                <li><a href="{% url 'search' %}">Search</a></li>
+                <li><a href="#">Locations</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--
+            <h1>Dashboard</h1>
+            <p>Here you can do stuff!</p>
+
+            <div id="box">
+                <div class="box-top">News</div>
+                <div class="box-panel">
+                    This is some simple news lalalala
+                </div>
+            </div>
+
+            <div id="box">
+                <div class="box-top">News</div>
+                <div class="box-panel">
+                    Here is some more news as a test
+                </div>
+            </div>
+
+            <div id="box">
+                <div class="box-top">News</div>
+                <div class="box-panel">
+                    And how about one more!!!!
+                </div>
+            </div>
+            -->
+
+          {% block content %}
+           [content will go here]
+          {% endblock %}
+        </div>
+    </div>
+
+
+</body>
 </html>

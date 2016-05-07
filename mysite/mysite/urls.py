@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from seasonal.views import browse_view, search_view
+from seasonal.views import home_view, browse_view, search_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', browse_view, name="browse"),
+    url(r'^$', home_view, name="home"),
+    url(r'^home/$', home_view, name="home"),
+    url(r'^browse/$', browse_view, name="browse"),
     url(r'^search/$', search_view, name="search"),
 ]

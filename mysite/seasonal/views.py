@@ -36,3 +36,7 @@ def search_view(request):
             else:
                 errors.append('No search results found for: {}'.format(q))
     return render(request, 'search.html', {'errors': errors})
+
+
+def faq_view(request):
+    return render(request, 'faq.html')

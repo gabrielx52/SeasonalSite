@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
+    <h1>Frequently Asked Questions (FAQ):</h1>
+    <br>
 
-</body>
-</html>
+    <li><strong>Why can't I find my location?</strong>
+        <p>
+            Our location data is limited to the United States and specifically for weather station information from
+            <a href="https://www.wunderground.com">wunderground.com.</a> In the future we plan on expanding our service
+            to cover more countries.
+        </p>
+    </li>
+    <br>
+
+    <li><strong>Why can't I find information for a particular piece of produce?</strong>
+        <p>
+            Our produce database is ever expanding. If you can't find information for a particular produce you can
+            either contact us directly and we will add your request to our database, or you can submit a request
+            to add to our database directly.
+        </p>
+    </li>
+    <br>
+
+    <li><strong>What is a <em>grow zone?</em></strong>
+        <p>
+            A <em>grow zone</em> is a standard created by the USDA by which gardeners and growers can determine which plants
+            are most likely to thrive at a location. The map is based on the average annual minimum winter temperature,
+            divided into 10-degree F zones.
+            <br>
+            <br>
+            More information can be found <a href="http://planthardiness.ars.usda.gov/PHZMWeb/">here.</a>
+        </p>
+    </li>
+    <br>
+
+    <li><strong>What is an <em>airport zone?</em></strong>
+        <p>
+            An <em>aiport zone</em> is the airport code for the closest airport. Most airports provide some
+            sort of weather tracking, and these zones are used by NOAA for weather service reporting.
+        </p>
+    </li>
+    <br>
+
+{% endblock %}

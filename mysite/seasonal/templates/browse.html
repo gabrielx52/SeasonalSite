@@ -1,18 +1,22 @@
-{% extends "base.html" %}{% block content %}
+{% extends "base.html" %}
+{% block content %}
   <h1>Browse All Produce</h1>
   {% comment %} List all of the produce within the database {% endcomment %}
   {% for item in produce %}
-      <div class="item">
-        <h2>{{ item }}</h2>
+    <div class="item">
+        <h2>{{ item.name }}</h2>
         <p>
           <strong>Ideal Temp:</strong>  {{ item.ideal_temp_low }}  &#x2109; - {{item.ideal_temp_high }} &#x2109;
         </p>
-        <p class="item-growtime">
+        <p>
           <strong>Growth Time:</strong> {{ item.growth_time }} days
         </p>
-        <div class="item-body">
+        <p>
+          <strong>Grow Zone(s):</strong> {{ item.grow_zone }}
+        </p>
+        <p>
           <strong>Description:</strong> {{ item.description }}
-        </div>
-      </div>
+        </p>
+    </div>
   {% endfor %}
 {% endblock %}

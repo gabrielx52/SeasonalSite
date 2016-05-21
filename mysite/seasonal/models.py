@@ -8,6 +8,7 @@ class Produce(models.Model):
     ideal_temp_low = models.DecimalField(decimal_places=1, max_digits=4)
     ideal_temp_high = models.DecimalField(decimal_places=1, max_digits=4)
     growth_time = models.IntegerField()
+    grow_zone = models.CharField(max_length=32)
     description = models.TextField(blank=True)
 
     class Meta:
@@ -23,7 +24,7 @@ class Location(models.Model):
     city = models.CharField(max_length=64)
     state = models.CharField(max_length=32)
     grow_zone = models.CharField(max_length=8)
-    airport_code = models.CharField(max_length=8, blank=True)
+    airport_zone = models.CharField(max_length=8, null=True, blank=True)
 
     class Meta:
         verbose_name = 'location'

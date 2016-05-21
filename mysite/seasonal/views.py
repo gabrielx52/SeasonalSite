@@ -3,15 +3,22 @@ from seasonal.models import Produce, Location
 
 # Create your views here.
 
+
 def home_view(request):
     context = {}
     return render(request, 'home.html', context)
 
 
-def browse_view(request):
-    produce = Produce.objects.order_by('-name')
+def browse_produce_view(request):
+    produce = Produce.objects.order_by('name')
     context = {'produce': produce}
-    return render(request, 'browse.html', context)
+    return render(request, 'browse_produce.html', context)
+
+
+def browse_locations_view(request):
+    locations = Location.objects.order_by('state')
+    context = {'locations': locations}
+    return render(request, 'browse_locations.html', context)
 
 
 def search_view(request):

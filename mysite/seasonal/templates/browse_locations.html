@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Browse All Locations</h1>
+  {% comment %} List all of the locations within the database {% endcomment %}
+  {% for place in locations %}
+    <div class="place">
+        <h3>{{ place }}</h3>
+        <p>
+          <strong>Zip Code:</strong>  {{ place.zipcode }}
+        </p>
+        <p>
+          <strong>Grow Zone(s):</strong>  {{ place.grow_zone }}
+        </p>
+        <p>
+          <strong>Airport Zone:</strong> {{ place.airport_zone }}
+        </p>
+    </div>
+  {% endfor %}
+{% endblock %}

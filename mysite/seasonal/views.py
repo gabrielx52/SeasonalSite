@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from seasonal.models import Produce, Location
 from .forms import AllForm
-from .functions import local_zipcodes, grow_zone_stripper, grow_zone_matcher
+from .functions import local_zipcodes, grow_zone_stripper, grow_zone_matcher, menu_parser, multi_zipcode_growzone_compiler, local_zipcodes_models
 
 # Create your views here.
 
@@ -15,11 +15,14 @@ def home_view(request):
             produce = form.cleaned_data['produce']
             location_model = Location.objects.get(zipcode=zipcode)
             grow_zone = grow_zone_stripper(location_model.grow_zone)
-            zips_in_radius = local_zipcodes(zipcode, int(distance))
+            #zips_in_radius = local_zipcodes(zipcode, int(distance))
+            zips_in_radius = local_zipcodes_models(zipcode, int(distance))
+            growzones_in_radius = multi_zipcode_growzone_compiler(zips_in_radius)
             city, state = str(location_model).split(',')
             city = city.capitalize()
             starting_location = city.capitalize() + ' ' + state
-            proddy = grow_zone_matcher(grow_zone)
+            local_produce = grow_zone_matcher(grow_zone)
+            parsed_veg_args = menu_parser(produce)
             if produce == "":
                 """ if produce list is blank will redirect to
                     show grow zone and produce in same zone """
@@ -29,7 +32,7 @@ def home_view(request):
                            'starting_location': starting_location,
                            'grow_zone': grow_zone,
                            'location_model': location_model,
-                           'proddy': proddy,
+                           'local_produce': local_produce,
                            'city': city,
                            'state': state}
                 return render(request, 'local_grow.html', context)
@@ -38,7 +41,12 @@ def home_view(request):
                            'distance': distance,
                            'produce': produce,
                            'zips_in_radius': zips_in_radius,
-                           'starting_location': starting_location}
+                           'starting_location': starting_location,
+                           'city': city,
+                           'state': state,
+                           'grow_zone': grow_zone,
+                           'parsed_veg_args': parsed_veg_args,
+                           'growzones_in_radius': growzones_in_radius}
             return render(request, 'local_harvest.html', context)
     form = AllForm()
     return render(request, 'home.html', {'form': form})

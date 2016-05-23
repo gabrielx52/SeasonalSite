@@ -15,8 +15,8 @@
         <div id="underlined">
             Produce capable of growth:
         </div>
-        {% for i in proddy %}
-            {{i}}<br>
+        {% for veg in local_produce %}
+            {{ veg }}<br>
         {% endfor %}
         <br>
         <a href="{% url 'home' %}">Return</a>

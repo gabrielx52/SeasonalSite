@@ -1,12 +1,47 @@
 from django.shortcuts import render
 from seasonal.models import Produce, Location
+from .forms import AllForm
+from .functions import local_zipcodes, grow_zone_stripper, grow_zone_matcher
 
 # Create your views here.
 
 
 def home_view(request):
-    context = {}
-    return render(request, 'home.html', context)
+    if request.method == 'GET':
+        form = AllForm(request.GET)
+        if form.is_valid():
+            zipcode = form.cleaned_data['zipcode']
+            distance = form.cleaned_data['distance']
+            produce = form.cleaned_data['produce']
+            location_model = Location.objects.get(zipcode=zipcode)
+            grow_zone = grow_zone_stripper(location_model.grow_zone)
+            zips_in_radius = local_zipcodes(zipcode, int(distance))
+            city, state = str(location_model).split(',')
+            city = city.capitalize()
+            starting_location = city.capitalize() + ' ' + state
+            proddy = grow_zone_matcher(grow_zone)
+            if produce == "":
+                """ if produce list is blank will redirect to
+                    show grow zone and produce in same zone """
+                context = {'zipcode': zipcode,
+                           'distance': distance,
+                           'zips_in_radius': zips_in_radius,
+                           'starting_location': starting_location,
+                           'grow_zone': grow_zone,
+                           'location_model': location_model,
+                           'proddy': proddy,
+                           'city': city,
+                           'state': state}
+                return render(request, 'local_grow.html', context)
+            else:
+                context = {'zipcode': zipcode,
+                           'distance': distance,
+                           'produce': produce,
+                           'zips_in_radius': zips_in_radius,
+                           'starting_location': starting_location}
+            return render(request, 'local_harvest.html', context)
+    form = AllForm()
+    return render(request, 'home.html', {'form': form})
 
 
 def browse_produce_view(request):

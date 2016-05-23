@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.views.generic.base import RedirectView
 from seasonal.views import home_view, browse_produce_view, browse_locations_view, search_view, faq_view
 
 urlpatterns = [
@@ -25,4 +26,5 @@ urlpatterns = [
     url(r'^browse_locations/$', browse_locations_view, name="browse_locations"),
     url(r'^search/$', search_view, name="search"),
     url(r'^faq/$', faq_view, name="faq"),
+    url(r'^.*$', RedirectView.as_view(pattern_name='home', permanent=True)),
 ]

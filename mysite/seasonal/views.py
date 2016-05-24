@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from seasonal.models import Produce, Location
 from .forms import AllForm
 from .functions import local_zipcodes, grow_zone_stripper, grow_zone_matcher, menu_parser, multi_zipcode_growzone_compiler, local_zipcodes_models
@@ -53,14 +54,40 @@ def home_view(request):
 
 
 def browse_produce_view(request):
-    produce = Produce.objects.order_by('name')
+    produce_list = Produce.objects.order_by('name')
+    paginator = Paginator(produce_list, 10) # Show 10 produce items per page.
+    page = request.GET.get('page')
+
+    try:
+        produce = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page.
+        produce = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results.
+        produce = paginator.page(paginator.num_pages)
+
     context = {'produce': produce}
     return render(request, 'browse_produce.html', context)
 
 
 def browse_locations_view(request):
-    locations = Location.objects.order_by('state')
+    location_list = Location.objects.order_by('state')
+    paginator = Paginator(location_list, 10)  # Show 10 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        locations = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        locations = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        locations = paginator.page(paginator.num_pages)
+
     context = {'locations': locations}
+    context.update(get_paged_browse_context(request, location_list))
+
     return render(request, 'browse_locations.html', context)
 
 
@@ -83,3 +110,20 @@ def search_view(request):
 
 def faq_view(request):
     return render(request, 'faq.html')
+
+
+def get_paged_browse_context(request, queryset):
+    paginator = Paginator(queryset, 10)
+    if request.GET.get('page'):
+        try:
+            requested_page = request.GET.get('page')
+        except PageNotAnInteger:
+            requested_page = 1
+        except EmptyPage:
+            requested_page = paginator.num_pages
+    else:
+        requested_page = 1
+    results = paginator.page(requested_page)
+    min_page = int(requested_page) - 4
+    max_page = int(requested_page) + 4
+    return {'results': results, 'min': min_page, 'max': max_page}

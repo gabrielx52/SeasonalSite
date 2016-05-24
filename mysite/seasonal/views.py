@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from seasonal.models import Produce, Location
-from .forms import AllForm
-from .functions import local_zipcodes, grow_zone_stripper, grow_zone_matcher, menu_parser, multi_zipcode_growzone_compiler, local_zipcodes_models
+from .forms import AllForm, ZipCodeForm, ProduceForm, DistanceForm
+from .functions import grow_zone_stripper, grow_zone_matcher, menu_parser, multi_zipcode_growzone_compiler, local_zipcodes_models
 
 # Create your views here.
 
@@ -14,7 +14,6 @@ def home_view(request):
             distance = form.cleaned_data['distance']
             produce = form.cleaned_data['produce']
             location_model = Location.objects.get(zipcode=zipcode)
-
             grow_zone = grow_zone_stripper(location_model.grow_zone)
             zips_in_radius = local_zipcodes_models(zipcode, int(distance))
             growzones_in_radius = multi_zipcode_growzone_compiler(zips_in_radius)
@@ -49,7 +48,14 @@ def home_view(request):
                            'growzones_in_radius': growzones_in_radius}
             return render(request, 'local_harvest.html', context)
     form = AllForm()
-    return render(request, 'home.html', {'form': form})
+    z_form = ZipCodeForm()
+    d_form = DistanceForm()
+    p_form = ProduceForm()
+    context = {'form': form,
+               'z_form': z_form,
+               'd_form': d_form,
+               'p_form': p_form}
+    return render(request, 'home.html', context)
 
 
 def browse_produce_view(request):

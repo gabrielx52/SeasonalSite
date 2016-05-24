@@ -23,3 +23,25 @@ class AllForm(forms.Form):
                               required=False,
                               widget=forms.Textarea(
                                     attrs={'class': 'produce_form'}))
+
+
+class ZipCodeForm(forms.Form):
+    zipcode = forms.CharField(max_length=5, required=True,
+                              label='Starting Zipcode',
+                              widget=forms.TextInput(
+                                    attrs={'class': 'zip_form'}))
+
+
+class DistanceForm(forms.Form):
+    distance = forms.ChoiceField(choices=DISTANCES,
+                                 required=True,
+                                 label='Distance (Miles)',
+                                 widget=forms.Select(
+                                       attrs={'class': 'distance_form'}))
+
+
+class ProduceForm(forms.Form):
+        produce = forms.CharField(label='Produce',
+                                  required=False,
+                                  widget=forms.Textarea(
+                                        attrs={'class': 'produce_form'}))

@@ -72,6 +72,9 @@ div#container {
 .zip_form {
     margin-left: 5;
 }
+span#home_submit {
+    margin-left: 78;
+}
 
 .distance_form {
     margin-left: 10;

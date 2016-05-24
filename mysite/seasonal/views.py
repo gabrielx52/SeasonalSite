@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.mail import send_mail, BadHeaderError
 from seasonal.models import Produce, Location
-from .forms import AllForm
+from .forms import AllForm, ContactForm
 from .functions import local_zipcodes, grow_zone_stripper, grow_zone_matcher, menu_parser, multi_zipcode_growzone_compiler, local_zipcodes_models
 
 # Create your views here.
@@ -73,21 +74,7 @@ def browse_produce_view(request):
 
 def browse_locations_view(request):
     location_list = Location.objects.order_by('state')
-    paginator = Paginator(location_list, 10)  # Show 10 contacts per page
-
-    page = request.GET.get('page')
-    try:
-        locations = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        locations = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        locations = paginator.page(paginator.num_pages)
-
-    context = {'locations': locations}
-    context.update(get_paged_browse_context(request, location_list))
-
+    context = get_paged_browse_context(request, location_list)
     return render(request, 'browse_locations.html', context)
 
 
@@ -112,8 +99,30 @@ def faq_view(request):
     return render(request, 'faq.html')
 
 
+def contact_view(request):
+    email_sent = False
+    errors = []
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            contact_email = form.cleaned_data['contact_email']
+            message = form.cleaned_data['message']
+            try:
+                # TODO: Add real email address.
+                send_mail(subject, message, contact_email, ['admin@gmail.com'])
+                email_sent = True
+            except Exception as e:
+                # TODO: Add better exception handling.
+                errors.append(e)
+    context = {'form': form, 'email_sent': email_sent, 'errors': errors}
+    return render(request, 'contact.html', context)
+
+
 def get_paged_browse_context(request, queryset):
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, 10)  # Show 10 contacts per page
     if request.GET.get('page'):
         try:
             requested_page = request.GET.get('page')
@@ -126,4 +135,5 @@ def get_paged_browse_context(request, queryset):
     results = paginator.page(requested_page)
     min_page = int(requested_page) - 4
     max_page = int(requested_page) + 4
+
     return {'results': results, 'min': min_page, 'max': max_page}

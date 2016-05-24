@@ -44,7 +44,8 @@ class ProduceForm(forms.Form):
         produce = forms.CharField(label='Produce',
                                   required=False,
                                   widget=forms.Textarea(
-                                        attrs={'class': 'produce_form'}))
+                                        attrs={'class': 'produce_form',
+                                                'placeholder': 'Leave blank to see all produce in grow zone.'}))
 
 
 class ContactForm(forms.Form):

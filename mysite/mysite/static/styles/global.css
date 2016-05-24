@@ -23,6 +23,10 @@ div#header {
     margin: 0 auto;
 }
 
+span#redfont {
+    color: darkred;
+}
+
 span#city {
     font-weight: 900;
 }

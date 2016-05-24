@@ -23,3 +23,9 @@ class AllForm(forms.Form):
                               required=False,
                               widget=forms.Textarea(
                                     attrs={'class': 'produce_form'}))
+
+
+class ContactForm(forms.Form):
+    contact_email = forms.EmailField(required=True)
+    subject = forms.CharField(required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)

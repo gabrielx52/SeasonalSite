@@ -12,13 +12,18 @@
             Grow zone(s): {{ grow_zone }}
         <br>
         <br>
-                <h2>{{ produce }}</h2>
-                <br>
-                {{ zips_in_radius }}
-                <br>
-                {{ parsed_veg_args }}
+        <span id="underlined">
+            Local produce: 
+        </span>
+        <br>
+        {% for i in parsed_veg_args %}
+        <ul>{{ i }}</ul>
+        {% endfor %}  
+        <br>
+        <a href="{% url 'home' %}">Return</a>
+   <!--              {{ zips_in_radius }}
                 <br>
                 {{ growzones_in_radius }}
                 <br>
-         </ul>
+         </ul> -->
 {% endblock %}

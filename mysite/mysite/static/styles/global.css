@@ -23,6 +23,16 @@ div#header {
     margin: 0 auto;
 }
 
+span#city {
+    font-weight: 900;
+}
+
+div#city_state {
+    color: #2c3e50;
+    font-size: 150%;
+    text-decoration: underline;
+}
+
 .logo {
     float: left;
     margin-top: 10px;
@@ -49,6 +59,33 @@ div#container {
     background-color: #171717;
     float: left;
 }
+
+.produce_form {
+    vertical-align: top;
+    margin-left: 15;
+    margin-top: 2;
+    width: 370;
+}  
+.all_form.produce_form {
+    margin-right: 50;
+}
+.zip_form {
+    margin-left: 5;
+}
+
+.distance_form {
+    margin-left: 10;
+    margin-top: 10;
+}
+
+div#underlined {
+    text-decoration: underline;
+}
+
+span#underlined {
+    text-decoration: underline;
+}
+
 ul#nav {
 
 }

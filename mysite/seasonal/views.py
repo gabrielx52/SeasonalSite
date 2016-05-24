@@ -14,8 +14,8 @@ def home_view(request):
             distance = form.cleaned_data['distance']
             produce = form.cleaned_data['produce']
             location_model = Location.objects.get(zipcode=zipcode)
+
             grow_zone = grow_zone_stripper(location_model.grow_zone)
-            #zips_in_radius = local_zipcodes(zipcode, int(distance))
             zips_in_radius = local_zipcodes_models(zipcode, int(distance))
             growzones_in_radius = multi_zipcode_growzone_compiler(zips_in_radius)
             city, state = str(location_model).split(',')

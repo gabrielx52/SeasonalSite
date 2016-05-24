@@ -2,7 +2,7 @@
 {% block content %}
   <h1>Browse All Locations</h1>
   {% comment %} List all of the locations within the database {% endcomment %}
-  {% for place in locations %}
+  {% for place in results %}
     <div class="place">
         <h3>{{ place }}</h3>
         <p>
@@ -16,27 +16,11 @@
         </p>
     </div>
   {% endfor %}
-<!--
+
     <div class="pagination">
         <span class="step-links">
-            {% if locations.has_previous %}
-                <a href="?page={{ locations.previous_page_number }}">Prev</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ locations.number }} of {{ locations.paginator.num_pages }}.
-            </span>
-
-            {% if locations.has_next %}
-                <a href="?page={{ locations.next_page_number }}">Next</a>
-            {% endif %}
-        </span>
-    </div>
--->
-    <div class="pagination">
-        <span class="step-links">
-            {% if locations.has_previous %}
-                <a href="?page={{ locations.previous_page_number }}">Prev</a>
+            {% if results.has_previous %}
+                <a href="?page={{ results.previous_page_number }}">Prev</a>
             {% endif %}
 
             {% for page in results.paginator.page_range %}
@@ -48,11 +32,11 @@
             {% endfor %}
 
             <span class="lastpage">
-                ...<a href="?page={{ locations.paginator.num_pages }}">{{ locations.paginator.num_pages}}</a>
+                ...<a href="?page={{ results.paginator.num_pages }}">{{ results.paginator.num_pages}}</a>
             </span>
 
             {% if locations.has_next %}
-                <a href="?page={{ locations.next_page_number }}">Next</a>
+                <a href="?page={{ results.next_page_number }}">Next</a>
             {% endif %}
         </span>
     </div>

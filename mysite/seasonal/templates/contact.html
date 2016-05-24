@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Contact - {{ block.super }}{% endblock %}
+{% block content %}
+<h1>Contact</h1>
+{% if email_sent %}
+    <strong>Email has been successfully sent.</strong>
+    <br>Redirecting to home page in...<a id="count"></id></a></strong>
+    <script>
+        var seconds_left = 5;
+        var interval = setInterval(function()
+        {
+            document.getElementById('count').innerHTML = --seconds_left;
+
+            if (seconds_left <= 0)
+            {
+               window.location.href = "home";
+            }
+        }, 1000);
+    </script>
+{% else %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+          <button type="submit">Send</button>
+        </div>
+    </form>
+
+    {% if errors %}
+        {% for error in errors %}
+            <p style="color: red;">{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+{% endif %}
+{% endblock %}

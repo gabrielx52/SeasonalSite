@@ -2,7 +2,7 @@
 {% block content %}
   <h1>Browse All Locations</h1>
   {% comment %} List all of the locations within the database {% endcomment %}
-  {% for place in locations %}
+  {% for place in results %}
     <div class="place">
         <h3>{{ place }}</h3>
         <p>
@@ -16,4 +16,28 @@
         </p>
     </div>
   {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if results.has_previous %}
+                <a href="?page={{ results.previous_page_number }}">Prev</a>
+            {% endif %}
+
+            {% for page in results.paginator.page_range %}
+               {% if page < max and page > min and page != results.number %}
+                  <a href="?page={{ page }}">{{ page }}</a>
+               {% elif page == results.number %}
+                  <b>{{page}}</b>
+               {% endif %}
+            {% endfor %}
+
+            <span class="lastpage">
+                ...<a href="?page={{ results.paginator.num_pages }}">{{ results.paginator.num_pages}}</a>
+            </span>
+
+            {% if locations.has_next %}
+                <a href="?page={{ results.next_page_number }}">Next</a>
+            {% endif %}
+        </span>
+    </div>
 {% endblock %}

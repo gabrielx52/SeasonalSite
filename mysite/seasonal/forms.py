@@ -25,6 +25,7 @@ class AllForm(forms.Form):
                                     attrs={'class': 'produce_form'}))
 
 
+<<<<<<< HEAD
 class ZipCodeForm(forms.Form):
     zipcode = forms.CharField(max_length=5, required=True,
                               label='Starting Zipcode',
@@ -45,3 +46,9 @@ class ProduceForm(forms.Form):
                                   required=False,
                                   widget=forms.Textarea(
                                         attrs={'class': 'produce_form'}))
+=======
+class ContactForm(forms.Form):
+    contact_email = forms.EmailField(required=True)
+    subject = forms.CharField(required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)
+>>>>>>> d47e8bf3f253445201a5c065462c7000c8ff604c

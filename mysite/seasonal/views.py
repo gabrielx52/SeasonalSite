@@ -2,13 +2,10 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail, BadHeaderError
 from seasonal.models import Produce, Location
-<<<<<<< HEAD
-from .forms import AllForm, ZipCodeForm, ProduceForm, DistanceForm
+
+from .forms import AllForm, ZipCodeForm, ProduceForm, DistanceForm, ContactForm
 from .functions import grow_zone_stripper, grow_zone_matcher, menu_parser, multi_zipcode_growzone_compiler, local_zipcodes_models
-=======
-from .forms import AllForm, ContactForm
-from .functions import local_zipcodes, grow_zone_stripper, grow_zone_matcher, menu_parser, multi_zipcode_growzone_compiler, local_zipcodes_models
->>>>>>> d47e8bf3f253445201a5c065462c7000c8ff604c
+
 
 # Create your views here.
 

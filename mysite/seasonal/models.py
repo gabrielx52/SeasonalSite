@@ -4,6 +4,7 @@ from django.db import models
 
 
 class Produce(models.Model):
+    """ Produce Model """
     name = models.CharField(max_length=128)
     ideal_temp_low = models.DecimalField(decimal_places=1, max_digits=4)
     ideal_temp_high = models.DecimalField(decimal_places=1, max_digits=4)
@@ -20,6 +21,7 @@ class Produce(models.Model):
 
 
 class Location(models.Model):
+    """ Location Model """
     zipcode = models.CharField(max_length=5)
     city = models.CharField(max_length=64)
     state = models.CharField(max_length=32)

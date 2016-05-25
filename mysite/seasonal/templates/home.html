@@ -3,7 +3,14 @@
     <p>This is a simple web app to track what produce is in season based on your location</p>
     <form action="" method="get">
         {% csrf_token %}
-        {{ form }}
+        {{ z_form }}
+        <span id="redfont">
+            {{ zipcode }} {{ not_found }}<br>
+        </span>
+        {{ d_form }}<br><br>
+        {{ p_form }}<br><br>
+        <span id="home_submit">
         <input type="submit" value="Submit" /><br>
+        </span>
     </form>
 {% endblock %}

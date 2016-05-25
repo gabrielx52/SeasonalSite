@@ -2,16 +2,6 @@ import zipcode
 from .models import Produce, Location
 
 
-def local_zipcodes(startingzip='98119', radius=10):
-    """ Returns list of zipcodes within radius of startingzip """
-    zip_obj = zipcode.isequal(startingzip)
-    try:
-        local_zips = zipcode.isinradius((zip_obj.lat, zip_obj.lon), radius)
-        return [i.zip for i in local_zips]
-    except AttributeError:
-        return 'No surrounding data available for ' + startingzip
-
-
 def local_zipcodes_models(startingzip='98119', radius=10):
     """ Returns list of Location models within radius of startingzip """
     zip_obj = zipcode.isequal(startingzip)
@@ -50,12 +40,12 @@ def menu_parser(args):
     arg_list = {arg.capitalize() for arg in args.split(' ')}
     produce = set()
     for arg in arg_list:
-        produce.update([f.name for f in Produce.objects.filter(name__startswith=arg)])
+        produce.update([f.name for f in Produce.objects.filter(name=arg)])
     if len(produce) >= 1:
         produce = {i for i in produce}
         return produce
     else:
-        return "No recognized vegetables in local grow zone."
+        return ["No recognized vegetables in local grow zone."]
 
 
 def grow_zone_matcher(grow_zone):
